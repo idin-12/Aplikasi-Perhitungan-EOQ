@@ -25,4 +25,4 @@ total_cost = (order_freq * S) + ((eoq / 2) * H)
 # --- Output ---
 st.subheader("📊 Hasil Perhitungan EOQ")
 st.write(f"**EOQ (Jumlah pesanan optimal):** {eoq:.2f} unit")
-st.write(f"**Jumlah pemesanan per tahun:** {or
+st.write(f"**Jumlah pemesanan per tahun:**
