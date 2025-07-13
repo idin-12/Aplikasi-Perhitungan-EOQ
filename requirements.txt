@@ -1,1 +1,7 @@
-# Tidak ada pustaka eksternal yang digunakan
+streamlit
+numpy
+sympy
+matplotlib
+plotly
+scipy
+pulp
