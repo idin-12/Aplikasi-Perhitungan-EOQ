@@ -61,5 +61,4 @@ TC = (D / Q) * S + (Q / 2) * H
 
 fig = go.Figure()
 fig.add_trace(go.Scatter(x=Q, y=TC, mode='lines', name='Total Cost'))
-fig.add_trace(go.Scatter(x=[eoq], y=[total_cost], mode='markers+text',
-                         name='EOQ', text=["EOQ"], textposi)
+fig.add_trace(go.Scatter(x=[eoq], y=[total_cost], mode='markers+text', name='EOQ', text=["EOQ"], textposi)
