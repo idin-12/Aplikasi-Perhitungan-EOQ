@@ -61,4 +61,25 @@ TC = (D / Q) * S + (Q / 2) * H
 
 fig = go.Figure()
 fig.add_trace(go.Scatter(x=Q, y=TC, mode='lines', name='Total Cost'))
-fig.add_trace(go.Scatter(x=[eoq], y=[total_cost], mode='markers+text', name='EOQ', text=["EOQ"], textposi)
+fig.add_trace(go.Scatter(x=[eoq], y=[total_cost], mode='markers+text',
+                         name='EOQ', text=["EOQ"], textposition="top center"))
+fig.update_layout(title="Kurva Total Biaya Persediaan",
+                  xaxis_title="Order Quantity (Q)",
+                  yaxis_title="Total Cost (Rp)",
+                  height=400)
+st.plotly_chart(fig)
+
+# --- Formula EOQ ---
+st.subheader("📐 Rumus EOQ (dalam simbol)")
+Q_sym, D_sym, S_sym, H_sym = sp.symbols('Q D S H')
+eoq_expr = sp.sqrt((2 * D_sym * S_sym) / H_sym)
+st.latex(r"EOQ = \sqrt{\frac{2DS}{H}}")
+st.latex(f"EOQ = {sp.latex(eoq_expr)}")
+
+# --- Optimasi Linear (Opsional) ---
+st.subheader("🧪 [Eksperimental] Optimasi Linear (Pulp)")
+prob = LpProblem("Minimize_Inventory_Cost", LpMinimize)
+Q_opt = LpVariable("Q", lowBound=1)
+prob += (D / Q_opt) * S + (Q_opt / 2) * H
+prob.solve()
+st.write(f"**Hasil optimasi (Pulp):** Q = {Q_opt.varValue:.2f} unit")
