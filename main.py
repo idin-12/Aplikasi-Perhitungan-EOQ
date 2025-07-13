@@ -1,35 +1,20 @@
-def calculate_eoq(D, S, H):
-    """
-    EOQ Formula: sqrt((2 * D * S) / H)
-    D = Permintaan tahunan
-    S = Biaya pemesanan per order
-    H = Biaya penyimpanan per unit per tahun
-    """
-    from math import sqrt
+import streamlit as st
+import numpy as np
+import matplotlib.pyplot as plt
+import plotly.graph_objs as go
+from sympy import symbols, Eq, solve
+from scipy.stats import norm
+from pulp import LpMaximize, LpProblem, LpVariable, lpSum
 
-    eoq = sqrt((2 * D * S) / H)
-    total_orders = D / eoq
-    total_inventory_cost = total_orders * S + (eoq / 2) * H
+st.title("📊 Studi Kasus Pabrik Kopi - Aroma Nusantara")
 
-    return eoq, total_inventory_cost, total_orders
+st.sidebar.header("Input Data")
+D = st.sidebar.number_input("Permintaan tahunan (unit)", value=10000)
+S = st.sidebar.number_input("Biaya pemesanan per pesanan (Rp)", value=50000)
+H = st.sidebar.number_input("Biaya penyimpanan per unit per tahun (Rp)", value=2000)
 
+st.subheader("🔢 Perhitungan EOQ (Economic Order Quantity)")
 
-def main():
-    print("=== Aplikasi Perhitungan EOQ ===")
-    try:
-        D = float(input("Masukkan permintaan tahunan (unit): "))
-        S = float(input("Masukkan biaya pemesanan per order: "))
-        H = float(input("Masukkan biaya penyimpanan per unit per tahun: "))
-
-        eoq, total_cost, order_freq = calculate_eoq(D, S, H)
-
-        print("\n--- Hasil Perhitungan ---")
-        print(f"EOQ (Jumlah pesanan optimal): {eoq:.2f} unit")
-        print(f"Total biaya persediaan: Rp {total_cost:,.2f}")
-        print(f"Jumlah pemesanan per tahun: {order_freq:.2f} kali")
-    except ValueError:
-        print("Input tidak valid. Pastikan Anda memasukkan angka.")
-
-
-if __name__ == "__main__":
-    main()
+# EOQ formula
+Q = symbols('Q', positive=True)
+TC = (D / Q)
