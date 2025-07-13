@@ -9,20 +9,24 @@ from pulp import LpProblem, LpMinimize, LpVariable, lpSum
 # --- Judul Aplikasi ---
 st.set_page_config(page_title="EOQ Calculator", layout="centered")
 st.title("📦 Aplikasi Perhitungan EOQ (Economic Order Quantity)")
-st.markdown("Simulasi perhitungan jumlah pemesanan optimal dengan model persediaan klasik.")
+st.markdown("Simulasi perhitungan jumlah pemesanan optimal berdasarkan model persediaan klasik.")
 
-# --- Input User ---
-st.sidebar.header("🔧 Parameter Input")
-D = st.sidebar.number_input("Permintaan tahunan (unit)", value=5000.0, min_value=1.0)
-S = st.sidebar.number_input("Biaya pemesanan per order (Rp)", value=100000.0, min_value=0.0)
-H = st.sidebar.number_input("Biaya penyimpanan per unit per tahun (Rp)", value=1000.0, min_value=0.0)
+# --- Penjelasan Konsep dan Fitur ---
+with st.expander("ℹ️ Tentang Aplikasi"):
+    st.markdown("""
+    ### 📘 Konsep
+    Aplikasi ini menggunakan **Inventory Model – EOQ Formula** untuk menghitung jumlah pemesanan optimal (Economic Order Quantity) yang meminimalkan total biaya persediaan.
 
-# --- EOQ Formula ---
-eoq = np.sqrt((2 * D * S) / H)
-order_freq = D / eoq
-total_cost = (order_freq * S) + ((eoq / 2) * H)
+    ### ⚙️ Fitur
+    **Input:**
+    - Permintaan tahunan *(annual demand)*
+    - Biaya pemesanan per order *(ordering cost)*
+    - Biaya penyimpanan per unit *(holding cost)*
 
-# --- Output ---
-st.subheader("📊 Hasil Perhitungan EOQ")
-st.write(f"**EOQ (Jumlah pesanan optimal):** {eoq:.2f} unit")
-st.write(f"**Jumlah pemesanan per tahun:** {order_freq:.2f} kali")
+    **Output:**
+    - EOQ *(jumlah pemesanan optimal)*
+    - Jumlah pemesanan per tahun
+    - Total biaya persediaan tahunan
+
+    Aplikasi ini juga menampilkan visualisasi interaktif dan representasi matematis dari formula EOQ.
+    """)
