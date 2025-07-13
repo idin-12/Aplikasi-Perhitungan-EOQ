@@ -1,7 +1,1 @@
-streamlit
-numpy
-sympy
-matplotlib
-plotly
-scipy
-pulp
+# Tidak ada pustaka eksternal yang digunakan
