@@ -76,10 +76,3 @@ eoq_expr = sp.sqrt((2 * D_sym * S_sym) / H_sym)
 st.latex(r"EOQ = \sqrt{\frac{2DS}{H}}")
 st.latex(f"EOQ = {sp.latex(eoq_expr)}")
 
-# --- Optimasi Linear (Opsional) ---
-st.subheader("🧪 [Eksperimental] Optimasi Linear (Pulp)")
-prob = LpProblem("Minimize_Inventory_Cost", LpMinimize)
-Q_opt = LpVariable("Q", lowBound=1)
-prob += (D / Q_opt) * S + (Q_opt / 2) * H
-prob.solve()
-st.write(f"**Hasil optimasi (Pulp):** Q = {Q_opt.varValue:.2f} unit")
